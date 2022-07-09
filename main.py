@@ -10,6 +10,8 @@ driver.get(url)
 driver.maximize_window()
 driver.find_element(By.CLASS_NAME,'_ado-responsiveFooterBillboard-hover').click()
 driver.find_element(By.CLASS_NAME,'js-accept-cookies').click()
+element = driver.find_element(By.CLASS_NAME, 'js-webpack-homepage-next')
+driver.execute_script("arguments[0].scrollIntoView();", element)
 session = requests.session()
 while True:
     html = driver.page_source
@@ -49,6 +51,4 @@ while True:
             print(infoClass.text + " - " + infoValue.text)
         print("-------------------------------------------------------")
     print("Fetching next page...............")
-    element = driver.find_element(By.CLASS_NAME, 'js-webpack-homepage-next')
-    driver.execute_script("arguments[0].scrollIntoView();", element)
-    element.click()
+    driver.find_element(By.CLASS_NAME, 'js-webpack-homepage-next').click()
