@@ -22,7 +22,8 @@ for car in cars:
         carPrice = car_page_soup.find('span', class_='priceClassified discountedPriceColor')
     print(carPrice.text)
 
-
+    sellingPlace = car_page_soup.find('div', class_='infoBox js-tutorial-contact').find('div', class_='uk-grid uk-margin-top-remove').find('div',class_='uk-width-1-2')
+    print(sellingPlace.contents[0].strip())
 
     allCarInfo = car_page_soup.find('div', class_='classified-content')
     generalInfo = allCarInfo.find('section', class_='js_fixedContetLoad').find('div', class_='infoBox').find('div', class_='uk-grid')
