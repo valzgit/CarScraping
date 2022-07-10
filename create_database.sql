@@ -10,7 +10,7 @@ karoserija VARCHAR(50) NOT NULL,
 vrsta_goriva VARCHAR(50) NOT NULL,
 boja VARCHAR(50) NOT NULL,
 kubikaza INT NOT NULL,
-snaga_motora VARCHAR(30) NOT NULL,
+snaga_motora INT NOT NULL,
 kilometraza INT NOT NULL,
 menjac VARCHAR(50) NOT NULL,
-broj_vrata VARCHAR(50) NOT NULL);
+broj_vrata INT NOT NULL);

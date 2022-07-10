@@ -83,7 +83,7 @@ while fetched_cars < 22000:
             elif infoClass.text == "Kubikaža":
                 kubikaza = int(infoValue.text.split()[0])
             elif infoClass.text == "Snaga motora":
-                snaga_motora = infoValue.text
+                snaga_motora = int(infoValue.text.split()[0].split("/")[0])
 
         additionalInfo = allCarInfo.find('div', class_='js-tab-classified-content classified-content').find('div', class_='infoBox').find('div', class_='uk-grid js-hidden uk-margin-top')
         additionalInfoRows = additionalInfo.findAll('div', class_='divider')
@@ -95,7 +95,7 @@ while fetched_cars < 22000:
             elif infoClass.text == "Menjač":
                 menjac = infoValue.text
             elif infoClass.text == "Broj vrata":
-                broj_vrata = infoValue.text
+                broj_vrata = int(infoValue.text.split()[0].split("/")[0])
         database.insertCar(marka,model,cena,stanje,grad,godiste,karoserija,vrsta_goriva,boja,kubikaza,snaga_motora, kilometraza, menjac, broj_vrata)
         fetched_cars += 1
         print("-------------------------"+str(fetched_cars)+"------------------------------")
