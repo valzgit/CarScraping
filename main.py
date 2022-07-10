@@ -1,5 +1,3 @@
-from locale import atof
-
 from bs4 import BeautifulSoup
 import requests
 
