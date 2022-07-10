@@ -39,6 +39,9 @@ class DatabaseInteractor:
         finally:
             if self.cursor is not None:
                 self.cursor.close()
+            if self.connection is not None:
+                self.connection.close()
+                self.initConnection()
 
     def closeConnection(self):
         if self.connection is not None:
