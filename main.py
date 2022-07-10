@@ -50,5 +50,5 @@ while True:
             infoValue = additionalInfoRow.find('div', class_='uk-width-1-2 uk-text-bold')
             print(infoClass.text + " - " + infoValue.text)
         print("-------------------------------------------------------")
-    print("Fetching next page...............")
+    print("\n\nFETCHING NEXT PAGE...............\n")
     driver.find_element(By.CLASS_NAME, 'js-webpack-homepage-next').click()
