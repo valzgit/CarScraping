@@ -19,6 +19,7 @@ session = requests.session()
 database = DatabaseInteractor()
 database.initConnection()
 fetched_cars = 0
+set = set()
 while fetched_cars < 22000:
     html = driver.page_source
     soup = BeautifulSoup(html, 'lxml')
@@ -42,7 +43,12 @@ while fetched_cars < 22000:
         menjac = None
         broj_vrata = None
         link = url + car.find('a')['href']
-        print("Going to link: " + link)
+        if set.__contains__(link):
+            print('Already visited this car: ' + link)
+            continue
+        else:
+            set.add(link)
+            print("Going to link: " + link)
         car_specific_html = session.get(link ,headers={'User-Agent': 'Mozilla/5.0'}, allow_redirects=True)
         car_page_soup = BeautifulSoup(car_specific_html.text,'lxml')
 
