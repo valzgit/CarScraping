@@ -2,28 +2,20 @@ from locale import atof
 
 from bs4 import BeautifulSoup
 import requests
-from selenium import webdriver
-from selenium.webdriver.common.by import By
 
 from database import DatabaseInteractor
 
 baseUrl = 'https://www.polovniautomobili.com'
-url = 'https://www.polovniautomobili.com/auto-oglasi/pretraga?page=1&sort=basic&city_distance=0&showOldNew=all&without_price=1'
-driver = webdriver.Firefox(executable_path='C:/Users/PC/ChromeDriver/geckodriver.exe')
-driver.get(url)
-driver.maximize_window()
-driver.find_element(By.CLASS_NAME,'_ado-responsiveFooterBillboard-hover').click()
-driver.find_element(By.CLASS_NAME,'js-accept-cookies').click()
-element = driver.find_element(By.CLASS_NAME, 'js-pagination-next')
-driver.execute_script("arguments[0].scrollIntoView();", element)
+first_url_part = 'https://www.polovniautomobili.com/auto-oglasi/pretraga?page='
+seconds_url_part = '&sort=basic&city_distance=0&showOldNew=all&without_price=1'
 session = requests.session()
 database = DatabaseInteractor()
 database.initConnection()
 fetched_cars = 0
+page = 1
 set = set()
 while fetched_cars < 22000:
-    print("Currently at page : " + driver.page_source)
-    html = driver.page_source
+    html = session.get(first_url_part + str(page) + seconds_url_part, headers={'User-Agent': 'Mozilla/5.0'}, allow_redirects=True).text
     soup = BeautifulSoup(html, 'lxml')
 
     cars = soup.findAll('div', class_='textContent')
@@ -105,6 +97,6 @@ while fetched_cars < 22000:
         database.insertCar(marka,model,cena,stanje,grad,godiste,karoserija,vrsta_goriva,boja,kubikaza,snaga_motora, kilometraza, menjac, broj_vrata)
         fetched_cars += 1
         print("-------------------------"+str(fetched_cars)+"------------------------------")
-    print("\n\nFETCHING NEXT PAGE...............\n")
-    driver.find_element(By.CLASS_NAME, 'js-pagination-next').click()
+    page += 1
+    print("\n\nFETCHING PAGE NUMBER " + str(page) + "...............\n")
 database.closeConnection()
