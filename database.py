@@ -170,6 +170,78 @@ class DatabaseInteractor:
                 self.connection.close()
                 self.initConnection()
 
+    def najvecaKubikaza(self):
+        try:
+            cursor = self.connection.cursor()
+
+            select_script = "select marka,model,cena from automobil order by kubikaza desc limit 1"
+
+            cursor.execute(select_script)
+
+            if cursor.rowcount == 0:
+                return None
+            else:
+                rows = cursor.fetchall()
+                for row in rows:
+                    print("[" + str(row[0]) + " | " + str(row[1]) +  " | " + str(row[2]) + "e]")
+
+        except Exception as error:
+            print(error)
+        finally:
+            if self.cursor is not None:
+                self.cursor.close()
+            if self.connection is not None:
+                self.connection.close()
+                self.initConnection()
+
+    def najvecaSnaga(self):
+        try:
+            cursor = self.connection.cursor()
+
+            select_script = "select marka,model,cena from automobil order by snaga_motora desc limit 1"
+
+            cursor.execute(select_script)
+
+            if cursor.rowcount == 0:
+                return None
+            else:
+                rows = cursor.fetchall()
+                for row in rows:
+                    print("[" + str(row[0]) + " | " + str(row[1]) +  " | " + str(row[2]) + "e]")
+
+        except Exception as error:
+            print(error)
+        finally:
+            if self.cursor is not None:
+                self.cursor.close()
+            if self.connection is not None:
+                self.connection.close()
+                self.initConnection()
+
+    def najvecaKilometraza(self):
+        try:
+            cursor = self.connection.cursor()
+
+            select_script = "select marka,model,cena from automobil order by kilometraza desc limit 1"
+
+            cursor.execute(select_script)
+
+            if cursor.rowcount == 0:
+                return None
+            else:
+                rows = cursor.fetchall()
+                for row in rows:
+                    print("[" + str(row[0]) + " | " + str(row[1]) +  " | " + str(row[2]) + "e]")
+
+        except Exception as error:
+            print(error)
+        finally:
+            if self.cursor is not None:
+                self.cursor.close()
+            if self.connection is not None:
+                self.connection.close()
+                self.initConnection()
+
     def closeConnection(self):
         if self.connection is not None:
             self.connection.close()
