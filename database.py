@@ -116,6 +116,60 @@ class DatabaseInteractor:
                 self.connection.close()
                 self.initConnection()
 
+    def printMostExpensiveCars(self, broj, karoserija):
+        try:
+            cursor = self.connection.cursor()
+
+            if karoserija is None:
+                select_script = "select marka,model,karoserija,cena from automobil order by cena desc limit %s"
+                select_values = (broj,)
+                cursor.execute(select_script, select_values)
+            else:
+                select_script = "select marka,model,karoserija,cena from automobil where karoserija = %s order by cena desc limit %s"
+                cursor.execute(select_script, (str(karoserija), str(broj)))
+
+
+
+            if cursor.rowcount == 0:
+                return None
+            else:
+                rows = cursor.fetchall()
+                for row in rows:
+                    print("[" + str(row[0]) + " | " + str(row[1]) + " | " + str(row[2]) + " | " + str(row[3]) + "e]")
+
+        except Exception as error:
+            print(error)
+        finally:
+            if self.cursor is not None:
+                self.cursor.close()
+            if self.connection is not None:
+                self.connection.close()
+                self.initConnection()
+
+    def printRangList(self):
+        try:
+            cursor = self.connection.cursor()
+
+            select_script = "select marka,model,karoserija,cena from automobil where godiste = 2021 or godiste = 2022 order by cena desc"
+
+            cursor.execute(select_script)
+
+            if cursor.rowcount == 0:
+                return None
+            else:
+                rows = cursor.fetchall()
+                for row in rows:
+                    print("[" + str(row[0]) + " | " + str(row[1]) +  " | " + str(row[2]) + " | " + str(row[3]) + "e]")
+
+        except Exception as error:
+            print(error)
+        finally:
+            if self.cursor is not None:
+                self.cursor.close()
+            if self.connection is not None:
+                self.connection.close()
+                self.initConnection()
+
     def closeConnection(self):
         if self.connection is not None:
             self.connection.close()
