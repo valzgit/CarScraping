@@ -7,8 +7,8 @@ baseUrl = 'https://www.polovniautomobili.com'
 first_url_part = 'https://www.polovniautomobili.com/auto-oglasi/pretraga?page='
 seconds_url_part = '&sort=basic&city_distance=0&showOldNew=all&without_price=1'
 session = requests.session()
-database = DatabaseInteractor()
-database.initConnection()
+# database = DatabaseInteractor()
+# database.initConnection()
 fetched_cars = 0
 page = 1
 set = set()
@@ -92,7 +92,7 @@ while fetched_cars < 22000:
                     menjac = infoValue.text
                 elif infoClass.text == "Broj vrata":
                     broj_vrata = int(infoValue.text.split()[0].split("/")[0])
-            database.insertCar(marka,model,cena,stanje,grad,godiste,karoserija,vrsta_goriva,boja,kubikaza,snaga_motora, kilometraza, menjac, broj_vrata)
+            # database.insertCar(marka,model,cena,stanje,grad,godiste,karoserija,vrsta_goriva,boja,kubikaza,snaga_motora, kilometraza, menjac, broj_vrata)
             fetched_cars += 1
             print("-------------------------"+str(fetched_cars)+"------------------------------")
         except Exception as error:
@@ -100,4 +100,4 @@ while fetched_cars < 22000:
             continue
     page += 1
     print("\n\nFETCHING PAGE NUMBER " + str(page) + "...............\n")
-database.closeConnection()
+# database.closeConnection()
