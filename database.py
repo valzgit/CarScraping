@@ -242,6 +242,33 @@ class DatabaseInteractor:
                 self.connection.close()
                 self.initConnection()
 
+    def getCarNumberPerCity(self, limit):
+        try:
+            cursor = self.connection.cursor()
+
+            select_params = (limit,)
+            select_script = "select grad, count(*) as broj from automobil group by grad order by broj desc limit %s"
+
+            cursor.execute(select_script, select_params)
+
+            if cursor.rowcount == 0:
+                return None
+            else:
+                rows = cursor.fetchall()
+                matrix = []
+                for row in rows:
+                    matrix.append([str(row[0]), row[1]])
+
+            return matrix
+        except Exception as error:
+            print(error)
+        finally:
+            if self.cursor is not None:
+                self.cursor.close()
+            if self.connection is not None:
+                self.connection.close()
+                self.initConnection()
+
     def closeConnection(self):
         if self.connection is not None:
             self.connection.close()
