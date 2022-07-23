@@ -273,10 +273,10 @@ class DatabaseInteractor:
         if self.connection is not None:
             self.connection.close()
 
-    def dohvatiSveKilometraze(self):
+    def dohvatiSveKilometrazeIGodine(self):
         try:
             cursor = self.connection.cursor()
-            select_script = "select kilometraza from automobil"
+            select_script = "select kilometraza, godiste from automobil"
 
             cursor.execute(select_script)
 

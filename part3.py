@@ -23,18 +23,50 @@ database.initConnection()
 # plt.show()
 
 # zadatak 2
-sveKilometraze = database.dohvatiSveKilometraze()
-buckets = [0, 0, 0, 0, 0, 0, 0]
-for row in sveKilometraze:
-    buckets[min(int(int(row[0])/50000), len(buckets) - 1)] += 1
+# sveKilometraze = database.dohvatiSveKilometrazeIGodine()
+# buckets = [0, 0, 0, 0, 0, 0, 0]
+# for row in sveKilometraze:
+#     buckets[min(int(int(row[0])/50000), len(buckets) - 1)] += 1
+#
+# data = {'ispod 50 000': buckets[0], '50 000 do 99 999' : buckets[1], '100 000 do 149 999': buckets[2], '150 000 do 199 999': buckets[3], '200 000 do 249 999': buckets[4], ' 250 000 do 299 999': buckets[5], 'preko 300 000': buckets[6]}
+# names = list(data.keys())
+# values = list(data.values())
+# print(names)
+# print(values)
+#
+# plt.bar(names,values)
+# plt.show()
 
-data = {'ispod 50 000': buckets[0], '50 000 do 99 999' : buckets[1], '100 000 do 149 999': buckets[2], '150 000 do 199 999': buckets[3], '200 000 do 249 999': buckets[4], ' 250 000 do 299 999': buckets[5], 'preko 300 000': buckets[6]}
+# zadatak 3
+sveGodine = database.dohvatiSveKilometrazeIGodine()
+buckets = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+for row in sveGodine:
+    if row[1] <= 2000:
+        index = max(int((int(row[1]) - 1950) / 10),
+                    0)  # starije od 1960 -> 1959-1950=9, pa /10 = 0, ako je manji broj negativan je tako da ce ga zaokruziti na 0
+        # 1960 do 1969 - 1950 = 10 do 19 /10 = 1 do 1 itd.
+        buckets[index] += 1
+    else:
+        if row[1] <= 2005:
+            buckets[5] += 1
+        elif row[1] <= 2010:
+            buckets[6] += 1
+        elif row[1] <= 2015:
+            buckets[7] += 1
+        elif row[1] <= 2020:
+            buckets[8] += 1
+        else:
+            buckets[9] += 1
+
+data = {'starije od 1960': buckets[0], '1961-1970': buckets[1], '1971-1980': buckets[2], '1981-1990': buckets[3],
+        '1991-2000': buckets[4], '2001-2005': buckets[5], '2006-2010': buckets[6], '2011-2015': buckets[7],
+        '2016-2020': buckets[8], '2021-2022': buckets[9]}
 names = list(data.keys())
 values = list(data.values())
 print(names)
 print(values)
 
-plt.bar(names,values)
+plt.bar(names, values)
 plt.show()
 
 database.closeConnection()
