@@ -70,24 +70,55 @@ database.initConnection()
 # plt.show()
 
 #zadatk 4
-matrix = database.brojSaAutomatskimIManuelnimMenjacem()
-labels = ['Automatski', 'Manuelni']
-explode = [0, 0]
+# matrix = database.brojSaAutomatskimIManuelnimMenjacem()
+# labels = ['Automatski', 'Manuelni']
+# explode = [0, 0]
+#
+# automatski = 0
+# manuelni = 0
+# for row in matrix:
+#     if str(row[0]).__contains__('automatski'):
+#         automatski+=row[1]
+#     else:
+#         manuelni+=row[1]
+# sizes = [automatski, manuelni]
+#
+# fig1, ax1 = plt.subplots()
+# ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
+#         shadow=True, startangle=90)
+# ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+#
+# plt.show()
 
-automatski = 0
-manuelni = 0
-for row in matrix:
-    if str(row[0]).__contains__('automatski'):
-        automatski+=row[1]
+# zadatak 5
+sveGodine = database.dohvatiSveKilometrazeIGodineICene()
+buckets = [0, 0, 0, 0, 0, 0, 0, 0]
+for row in sveGodine:
+    if row[2] <= 2000:
+        buckets[0] += 1
+    elif row[2] <= 4999:
+        buckets[1] += 1
+    elif row[2] <= 9999:
+        buckets[2] += 1
+    elif row[2] <= 14999:
+        buckets[3] += 1
+    elif row[2] <= 19999:
+        buckets[4] += 1
+    elif row[2] <= 24999:
+        buckets[5] += 1
+    elif row[2] <= 29999:
+        buckets[6] += 1
     else:
-        manuelni+=row[1]
-sizes = [automatski, manuelni]
+        buckets[7] += 1
 
-fig1, ax1 = plt.subplots()
-ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
-        shadow=True, startangle=90)
-ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+data = {'manje od 2000 €': buckets[0], '2000 € i 4999 €': buckets[1], '5000 € i 9999 €': buckets[2], '10 000 € i 14 999 €': buckets[3],
+        '15 000 € i 19 999 €': buckets[4], '20 000 € i 24 999 €': buckets[5], '25 000 € i 29 999 €': buckets[6], '30 000 € ili više': buckets[7]}
+names = list(data.keys())
+values = list(data.values())
+print(names)
+print(values)
 
+plt.bar(names, values)
 plt.show()
 
 database.closeConnection()
