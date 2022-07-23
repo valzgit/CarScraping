@@ -293,3 +293,24 @@ class DatabaseInteractor:
             if self.connection is not None:
                 self.connection.close()
                 self.initConnection()
+
+    def brojSaAutomatskimIManuelnimMenjacem(self):
+        try:
+            cursor = self.connection.cursor()
+            select_script = "select menjac, count(*) as broj from automobil group by menjac"
+
+            cursor.execute(select_script)
+
+            if cursor.rowcount == 0:
+                return None
+            else:
+                return cursor.fetchall()
+
+        except Exception as error:
+            print(error)
+        finally:
+            if self.cursor is not None:
+                self.cursor.close()
+            if self.connection is not None:
+                self.connection.close()
+                self.initConnection()
