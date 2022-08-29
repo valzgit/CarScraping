@@ -1,5 +1,7 @@
 import psycopg2
 
+from car import Car
+
 
 class DatabaseInteractor:
     hostname = 'localhost'
@@ -58,6 +60,32 @@ class DatabaseInteractor:
                 rows = cursor.fetchall()
                 for row in rows:
                  print("["+str(row[0]) + " | " + str(row[1])+"]")
+
+        except Exception as error:
+            print(error)
+        finally:
+            if self.cursor is not None:
+                self.cursor.close()
+            if self.connection is not None:
+                self.connection.close()
+                self.initConnection()
+
+    def getAllCars(self):
+        try:
+            cursor = self.connection.cursor()
+
+            select_script = "select id, marka, model, cena, stanje, grad, godiste, karoserija, vrsta_goriva, boja, kubikaza, snaga_motora, kilometraza, menjac, broj_vrata from automobil"
+
+            cursor.execute(select_script)
+
+            if cursor.rowcount == 0:
+                return None
+            else:
+                rows = cursor.fetchall()
+                cars = []
+                for row in rows:
+                    cars.append(Car(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[12],row[13],row[14]))
+            return cars
 
         except Exception as error:
             print(error)
