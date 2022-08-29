@@ -96,6 +96,162 @@ class DatabaseInteractor:
                 self.connection.close()
                 self.initConnection()
 
+    def getAllModels(self):
+        try:
+            cursor = self.connection.cursor()
+
+            select_script = "select distinct(model) from automobil"
+
+            cursor.execute(select_script)
+
+            if cursor.rowcount == 0:
+                return None
+            else:
+                rows = cursor.fetchall()
+                models = []
+                for row in rows:
+                    models.append(row[0])
+                return models
+
+        except Exception as error:
+            print(error)
+        finally:
+            if self.cursor is not None:
+                self.cursor.close()
+            if self.connection is not None:
+                self.connection.close()
+                self.initConnection()
+
+    def getPriceOrderedModels(self):
+        try:
+            cursor = self.connection.cursor()
+
+            select_script = "select distinct(model), avg(cena) as sredina from automobil group by model order by sredina;"
+
+            cursor.execute(select_script)
+
+            if cursor.rowcount == 0:
+                return None
+            else:
+                rows = cursor.fetchall()
+                models = []
+                for row in rows:
+                    models.append(row[0])
+                return models
+
+        except Exception as error:
+            print(error)
+        finally:
+            if self.cursor is not None:
+                self.cursor.close()
+            if self.connection is not None:
+                self.connection.close()
+                self.initConnection()
+
+    def getPriceOrderedMarkas(self):
+        try:
+            cursor = self.connection.cursor()
+
+            select_script = "select distinct(marka), avg(cena) as sredina from automobil group by marka order by sredina;"
+
+            cursor.execute(select_script)
+
+            if cursor.rowcount == 0:
+                return None
+            else:
+                rows = cursor.fetchall()
+                models = []
+                for row in rows:
+                    models.append(row[0])
+                return models
+
+        except Exception as error:
+            print(error)
+        finally:
+            if self.cursor is not None:
+                self.cursor.close()
+            if self.connection is not None:
+                self.connection.close()
+                self.initConnection()
+
+    def getPriceOrderedMenjaci(self):
+        try:
+            cursor = self.connection.cursor()
+
+            select_script = "select distinct(menjac), avg(cena) as sredina from automobil group by menjac order by sredina;"
+
+            cursor.execute(select_script)
+
+            if cursor.rowcount == 0:
+                return None
+            else:
+                rows = cursor.fetchall()
+                models = []
+                for row in rows:
+                    models.append(row[0])
+                return models
+
+        except Exception as error:
+            print(error)
+        finally:
+            if self.cursor is not None:
+                self.cursor.close()
+            if self.connection is not None:
+                self.connection.close()
+                self.initConnection()
+
+    def getPriceOrderedVrsteGoriva(self):
+        try:
+            cursor = self.connection.cursor()
+
+            select_script = "select distinct(vrsta_goriva), avg(cena) as sredina from automobil group by vrsta_goriva order by sredina;"
+
+            cursor.execute(select_script)
+
+            if cursor.rowcount == 0:
+                return None
+            else:
+                rows = cursor.fetchall()
+                models = []
+                for row in rows:
+                    models.append(row[0])
+                return models
+
+        except Exception as error:
+            print(error)
+        finally:
+            if self.cursor is not None:
+                self.cursor.close()
+            if self.connection is not None:
+                self.connection.close()
+                self.initConnection()
+
+    def getPriceOrderedKaroserija(self):
+        try:
+            cursor = self.connection.cursor()
+
+            select_script = "select distinct(karoserija), avg(cena) as sredina from automobil group by karoserija order by sredina;"
+
+            cursor.execute(select_script)
+
+            if cursor.rowcount == 0:
+                return None
+            else:
+                rows = cursor.fetchall()
+                models = []
+                for row in rows:
+                    models.append(row[0])
+                return models
+
+        except Exception as error:
+            print(error)
+        finally:
+            if self.cursor is not None:
+                self.cursor.close()
+            if self.connection is not None:
+                self.connection.close()
+                self.initConnection()
+
     def printCarNumberPerCity(self):
         try:
             cursor = self.connection.cursor()

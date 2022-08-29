@@ -1,16 +1,21 @@
+from sklearn.linear_model import LinearRegression
+
 from car import Car
 from database import DatabaseInteractor
 
 INITIAL_W = 1
 database = DatabaseInteractor()
 database.initConnection()
+Car.models = database.getAllModels()
 cars = database.getAllCars()
 print(len(cars))
-cars = Car.removeAllCarsThatHaveInvalidParams(cars)
+cars = Car.removeAllCarsThatHaveOutOfRangeNumericalParams(cars)
 print(len(cars))
+Car.shuffle(cars)
+Car.calculateNormalizationValues(cars)
 train_cars, test_cars = Car.separateIntoTrainAndTestData(cars, 70)
 w = [INITIAL_W]
-alpha = 0.001
+alpha = 420
 for param in cars[0].getLinearParams():
     w.append(INITIAL_W)
 
@@ -33,14 +38,14 @@ for train_car in train_cars:
         index += 1
 
 print("Equasion parameters = " + str(w))
-# for test_car in test_cars:
-#     params = test_car.getLinearParams()
-#     h = 0
-#     index = 0
-#     while index != len(params):
-#         h += w[index] * params[index]
-#         index += 1
-#     h += w[len(w) - 1]
-#     print("Predikcija = " + str(h) + " prava cena = " + str(test_car.cena))
+for test_car in test_cars:
+    params = test_car.getLinearParams()
+    h = 0
+    index = 0
+    while index != len(params):
+        h += w[index] * params[index]
+        index += 1
+    h += w[len(w) - 1]
+    print("Predikcija = " + str(h) + " prava cena = " + str(test_car.cena))
 
 database.closeConnection()
