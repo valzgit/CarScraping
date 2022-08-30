@@ -41,9 +41,9 @@ class Car:
                 Car.max_car_snaga_motora = car.snaga_motora
 
     def getLinearParams(self):
-        return [Car.generateNumberFromKaroserija(self.karoserija),Car.generateNumberFromGorivo(self.vrsta_goriva),Car.generateNumberFromMenjac(self.menjac),Car.generateNumberFromMarka(self.marka), Car.generateNumberFromModel(self.model), Car.turnStanjeToNumber(self.stanje),
-                self.godiste-1979 ,
-                self.kubikaza , self.snaga_motora]
+        return [Car.generateNumberFromKaroserija(self.karoserija)/8,Car.generateNumberFromGorivo(self.vrsta_goriva)/5,Car.generateNumberFromMenjac(self.menjac)/6,Car.generateNumberFromMarka(self.marka)/64, Car.generateNumberFromModel(self.model)/782, Car.turnStanjeToNumber(self.stanje)/2,
+                (self.godiste-1940)/82 ,
+                self.kubikaza/ 2000103 , self.snaga_motora/581, self.kilometraza/3800006]
 
     @staticmethod
     def generateArrayFromMarka(car_marka):
