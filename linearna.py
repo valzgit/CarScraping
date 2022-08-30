@@ -7,6 +7,11 @@ INITIAL_W = 1
 database = DatabaseInteractor()
 database.initConnection()
 Car.models = database.getAllModels()
+Car.price_ordered_models = database.getPriceOrderedModels()
+Car.price_ordered_markas = database.getPriceOrderedMarkas()
+Car.price_ordered_menjaci = database.getPriceOrderedMenjaci()
+Car.price_ordered_gorivo = database.getPriceOrderedVrsteGoriva()
+Car.price_ordered_karoserija = database.getPriceOrderedKaroserija()
 cars = database.getAllCars()
 print(len(cars))
 cars = Car.removeAllCarsThatHaveOutOfRangeNumericalParams(cars)
@@ -15,7 +20,7 @@ Car.shuffle(cars)
 Car.calculateNormalizationValues(cars)
 train_cars, test_cars = Car.separateIntoTrainAndTestData(cars, 70)
 w = [INITIAL_W]
-alpha = 420
+alpha = 0.001
 for param in cars[0].getLinearParams():
     w.append(INITIAL_W)
 

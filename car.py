@@ -42,7 +42,7 @@ class Car:
 
     def getLinearParams(self):
         return [Car.generateNumberFromKaroserija(self.karoserija),Car.generateNumberFromGorivo(self.vrsta_goriva),Car.generateNumberFromMenjac(self.menjac),Car.generateNumberFromMarka(self.marka), Car.generateNumberFromModel(self.model), Car.turnStanjeToNumber(self.stanje),
-                self.godiste ,
+                self.godiste-1979 ,
                 self.kubikaza , self.snaga_motora]
 
     @staticmethod
