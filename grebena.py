@@ -20,10 +20,11 @@ Car.calculateNormalizationValues(cars)
 train_cars, test_cars = Car.separateIntoTrainAndTestData(cars, 70)
 w = [INITIAL_W]
 alpha = 0.35
+lambda_param = 1
 for param in cars[0].getLinearParams():
     w.append(INITIAL_W)
 
-iterations = 300
+iterations = 200
 i = 0
 while i < iterations:
     print("Iteration: " + str(i))
@@ -44,12 +45,13 @@ while i < iterations:
 
         razlike.append(h_x - car.cena)
 
-
     m = len(train_cars)
     novo_w = []
     koje_w_se_azurira = 0
     while koje_w_se_azurira < len(w):
-        novo_w.append(w[koje_w_se_azurira] - (alpha/m) * Calculator.mulOfSameArrays(razlike, matrix[koje_w_se_azurira]))
+        novo_w.append(w[koje_w_se_azurira] - (alpha / m) * \
+                      (Calculator.mulOfSameArrays(razlike, matrix[koje_w_se_azurira]) +
+                                                  (koje_w_se_azurira != 0 if w[koje_w_se_azurira] * lambda_param else 0)))
         koje_w_se_azurira += 1
     w = novo_w
     i += 1
@@ -61,7 +63,7 @@ for test_car in test_cars:
     h = w[0]
     index = 1
     while index != len(w):
-        h += w[index] * params[index-1]
+        h += w[index] * params[index - 1]
         index += 1
     print("Predikcija = " + str(h) + " prava cena = " + str(test_car.cena))
 
