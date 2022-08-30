@@ -206,6 +206,10 @@ class Car:
         size = len(cars)
         cars = cars[50:size - 50]
 
+        cars.sort(key=lambda x: x.kilometraza, reverse=True)
+        size = len(cars)
+        cars = cars[50:size - 50]
+
         cars.sort(key=lambda x: x.cena, reverse=False)
 
         minimum_index = 0
