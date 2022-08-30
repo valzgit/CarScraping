@@ -49,9 +49,10 @@ while i < iterations:
     novo_w = []
     koje_w_se_azurira = 0
     while koje_w_se_azurira < len(w):
-        novo_w.append(w[koje_w_se_azurira] - (alpha / m) * \
-                      (Calculator.mulOfSameArrays(razlike, matrix[koje_w_se_azurira]) +
-                                                  (koje_w_se_azurira != 0 if w[koje_w_se_azurira] * lambda_param else 0)))
+        grebena = 0
+        if koje_w_se_azurira != 0:
+            grebena = w[koje_w_se_azurira] * lambda_param
+        novo_w.append(w[koje_w_se_azurira] - (alpha / m) * (Calculator.mulOfSameArrays(razlike, matrix[koje_w_se_azurira]) + grebena))
         koje_w_se_azurira += 1
     w = novo_w
     i += 1
