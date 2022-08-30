@@ -19,37 +19,37 @@ Car.shuffle(cars)
 Car.calculateNormalizationValues(cars)
 train_cars, test_cars = Car.separateIntoTrainAndTestData(cars, 70)
 w = [INITIAL_W]
-alpha = 0.2
+alpha = 0.35
 for param in cars[0].getLinearParams():
     w.append(INITIAL_W)
 
-iterations = 20
+iterations = 300
 i = 0
 while i < iterations:
-    print("Iteration " + str(i))
+    print("Iteration: " + str(i))
     print(w)
-    m = len(train_cars)
-    novo_w = []
-    koje_w_se_azurira = 0
+
+    matrix = []
+    for param_w in w:
+        matrix.append([])
     razlike = []
     for car in cars:
         params = car.getLinearParams()
         w_index = 1
         h_x = w[0]
         for param in params:
+            matrix[w_index].append(param)
             h_x += w[w_index] * param
             w_index += 1
 
         razlike.append(h_x - car.cena)
 
-    while koje_w_se_azurira < len(w):
-        zeljeni_parametri = []
-        for car in cars:
-            params = car.getLinearParams()
-            if koje_w_se_azurira != 0:
-                zeljeni_parametri.append(params[koje_w_se_azurira - 1])
 
-        novo_w.append(w[koje_w_se_azurira] - (alpha/m) * Calculator.mulOfSameArrays(razlike, zeljeni_parametri))
+    m = len(train_cars)
+    novo_w = []
+    koje_w_se_azurira = 0
+    while koje_w_se_azurira < len(w):
+        novo_w.append(w[koje_w_se_azurira] - (alpha/m) * Calculator.mulOfSameArrays(razlike, matrix[koje_w_se_azurira]))
         koje_w_se_azurira += 1
     w = novo_w
     i += 1
