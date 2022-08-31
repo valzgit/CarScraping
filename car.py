@@ -239,6 +239,10 @@ class Car:
         return distance.euclidean(car1.getLinearParams(), car2.getLinearParams())
 
     @staticmethod
+    def calculateChebyshevDistance(car1, car2):
+        return distance.chebyshev(car1.getLinearParams(), car2.getLinearParams())
+
+    @staticmethod
     def removeAllCarsThatHaveOutOfRangeNumericalParams(cars):
         cars.sort(key=lambda x: x.kubikaza, reverse=True)
         size = len(cars)
