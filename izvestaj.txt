@@ -17,3 +17,4 @@ Podaci su randomizovani i podeljeni u testne i trenirajuce
 Za linearnu regresiju realizovana je grebena regresija (alfa 0.35 i lambda 1 sa 50ak iteracija pokazuje najbolje performanse) kao i stohasticka, koriscena je i ugradjena za testne svrhe
 
 Za knn koriscene su euklidska i cebiseva razdaljina (maksimalna razdaljina izmedju neke 2 koordinate), prikazane su performanse sa razlicitim vrednostima k i korisnik moze da sam unese k po zelji
+Takodje je realizovan grafik zavisnosti tacnosti od k i matrice konfuzija
