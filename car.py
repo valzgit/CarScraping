@@ -1,4 +1,5 @@
 import random
+from scipy.spatial import distance
 
 
 class Car:
@@ -41,9 +42,12 @@ class Car:
                 Car.max_car_snaga_motora = car.snaga_motora
 
     def getLinearParams(self):
-        return [Car.generateNumberFromKaroserija(self.karoserija)/8,Car.generateNumberFromGorivo(self.vrsta_goriva)/5,Car.generateNumberFromMenjac(self.menjac)/6,Car.generateNumberFromMarka(self.marka)/64, Car.generateNumberFromModel(self.model)/782, Car.turnStanjeToNumber(self.stanje)/2,
-                (self.godiste-1940)/82 ,
-                self.kubikaza/ 2000103 , self.snaga_motora/581, self.kilometraza/3800006]
+        return [Car.generateNumberFromKaroserija(self.karoserija) / 8,
+                Car.generateNumberFromGorivo(self.vrsta_goriva) / 5, Car.generateNumberFromMenjac(self.menjac) / 6,
+                Car.generateNumberFromMarka(self.marka) / 64, Car.generateNumberFromModel(self.model) / 782,
+                Car.turnStanjeToNumber(self.stanje) / 2,
+                (self.godiste - 1940) / 82,
+                self.kubikaza / 2000103, self.snaga_motora / 581, self.kilometraza / 3800006]
 
     @staticmethod
     def generateArrayFromMarka(car_marka):
@@ -191,6 +195,48 @@ class Car:
     def separateIntoTrainAndTestData(cars, percentage):
         split_index = round(percentage / 100.0 * len(cars))
         return cars[:split_index], cars[split_index:]
+
+    def getPriceBucket(self):
+        if self.cena <= 2000:
+            return "<= 2000"
+        elif self.cena <= 4999:
+            return "<= 4999"
+        elif self.cena <= 9999:
+            return "<= 9999"
+        elif self.cena <= 14999:
+            return "<= 14999"
+        elif self.cena <= 19999:
+            return "<= 19999"
+        elif self.cena <= 24999:
+            return "<= 24999"
+        elif self.cena <= 29999:
+            return "<= 29999"
+        else:
+            return "> 30000"
+
+    @staticmethod
+    def enrichPriceBucket(car, buckets):
+        # print(str(car.car_id) + " usao " + str(car.cena))
+        if car.cena <= 2000:
+            buckets[0] += 1
+        elif car.cena <= 4999:
+            buckets[1] += 1
+        elif car.cena <= 9999:
+            buckets[2] += 1
+        elif car.cena <= 14999:
+            buckets[3] += 1
+        elif car.cena <= 19999:
+            buckets[4] += 1
+        elif car.cena <= 24999:
+            buckets[5] += 1
+        elif car.cena <= 29999:
+            buckets[6] += 1
+        else:
+            buckets[7] += 1
+
+    @staticmethod
+    def calculateEuclideanDistance(car1, car2):
+        return distance.euclidean(car1.getLinearParams(), car2.getLinearParams())
 
     @staticmethod
     def removeAllCarsThatHaveOutOfRangeNumericalParams(cars):
