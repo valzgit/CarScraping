@@ -4,6 +4,7 @@ from car import Car
 from database import DatabaseInteractor
 import numpy as np
 import pandas as pd
+from matplotlib import pyplot as plt
 
 INITIAL_W = 1
 database = DatabaseInteractor()
@@ -28,7 +29,8 @@ initial_k = round(np.sqrt(len(train_cars)))
 min_k = round(9 / 10 * initial_k)
 max_k = round(11 / 10 * initial_k)
 print("Testing k values from " + str(min_k) + " to " + str(max_k))
-while min_k < max_k:
+memorized_accuracies = []
+while min_k <= max_k:
     bucket_matrix = [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
                      [0, 0, 0, 0, 0, 0, 0, 0],
                      [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
@@ -66,7 +68,6 @@ while min_k < max_k:
         # print(pd.DataFrame(bucket_matrix, columns=bucket_classes, index = guessed_bucket_classes).to_string())
     print(pd.DataFrame(bucket_matrix, columns=bucket_classes, index=guessed_bucket_classes).to_string())
 
-    memorized_accuracies = []
     top_A = 0
     bottom_A = 0
     i = 0
@@ -83,40 +84,43 @@ while min_k < max_k:
     print("Top A = " + str(top_A))
     print("Bottom A = " + str(bottom_A))
     A = top_A / bottom_A
-    print("Accuracy when k is ["+ str(min_k) +"] is [A = " + str(A) + "]")
-    memorized_accuracies.append([min_k, A])
+    print("Accuracy when k is [" + str(min_k) + "] is [A = " + str(A) + "]")
+    memorized_accuracies.append([str(min_k), [min_k, A]])
     min_k += 1
 
+for p, (x, y) in memorized_accuracies:
+    plt.scatter(x, y, label=("k=" + str(p)))
+plt.legend()
+plt.show()
 
-
-while 1:
-    try:
-        print("Unesite karoseriju")
-        temp_karoseriju = input()
-        print("Unesite gorivo")
-        temp_gorivo = input()
-        print("Unesite menjac")
-        temp_menjac = input()
-        print("Unesite marku")
-        temp_marku = input()
-        print("Unesite model")
-        temp_model = input()
-        print("Unesite stanje")
-        temp_stanje = input()
-        print("Unesite godiste")
-        temp_godiste = int(input())
-        print("Unesite kubikazu")
-        temp_kubikaza = int(input())
-        print("Unesite snagu motora")
-        temp_snaga = int(input())
-        print("Unesite kilometrazu")
-        temp_kilometraza = int(input())
-        auto_za_proveru = Car(0, temp_marku, temp_model, 0, temp_stanje, "Beograd", temp_godiste, temp_karoseriju,
-                              temp_gorivo, "Crna", temp_kubikaza, temp_snaga, temp_kilometraza,
-                              temp_menjac, 4)
-        params = auto_za_proveru.getLinearParams()
-        for car in cars:
-            pass
-    except:
-        print("Try again!")
+# while 1:
+#     try:
+#         print("Unesite karoseriju")
+#         temp_karoseriju = input()
+#         print("Unesite gorivo")
+#         temp_gorivo = input()
+#         print("Unesite menjac")
+#         temp_menjac = input()
+#         print("Unesite marku")
+#         temp_marku = input()
+#         print("Unesite model")
+#         temp_model = input()
+#         print("Unesite stanje")
+#         temp_stanje = input()
+#         print("Unesite godiste")
+#         temp_godiste = int(input())
+#         print("Unesite kubikazu")
+#         temp_kubikaza = int(input())
+#         print("Unesite snagu motora")
+#         temp_snaga = int(input())
+#         print("Unesite kilometrazu")
+#         temp_kilometraza = int(input())
+#         auto_za_proveru = Car(0, temp_marku, temp_model, 0, temp_stanje, "Beograd", temp_godiste, temp_karoseriju,
+#                               temp_gorivo, "Crna", temp_kubikaza, temp_snaga, temp_kilometraza,
+#                               temp_menjac, 4)
+#         params = auto_za_proveru.getLinearParams()
+#         for car in cars:
+#             pass
+#     except:
+#         print("Try again!")
 database.closeConnection()
