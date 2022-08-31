@@ -60,6 +60,7 @@ class DatabaseInteractor:
                 rows = cursor.fetchall()
                 for row in rows:
                  print("["+str(row[0]) + " | " + str(row[1])+"]")
+                return rows
 
         except Exception as error:
             print(error)
@@ -266,6 +267,7 @@ class DatabaseInteractor:
                 rows = cursor.fetchall()
                 for row in rows:
                  print("["+str(row[0]) + " | " + str(row[1])+"]")
+                return rows
 
         except Exception as error:
             print(error)
@@ -290,6 +292,7 @@ class DatabaseInteractor:
                 rows = cursor.fetchall()
                 for row in rows:
                     print("[" + str(row[0]) + " | " + str(row[1]) + "]")
+                return rows
 
         except Exception as error:
             print(error)
@@ -320,6 +323,7 @@ class DatabaseInteractor:
                 rows = cursor.fetchall()
                 for row in rows:
                     print("[" + str(row[0]) + " | " + str(row[1]) + " | " + str(row[2]) + " | " + str(row[3]) + "e]")
+                return rows
 
         except Exception as error:
             print(error)
@@ -344,6 +348,7 @@ class DatabaseInteractor:
                 rows = cursor.fetchall()
                 for row in rows:
                     print("[" + str(row[0]) + " | " + str(row[1]) +  " | " + str(row[2]) + " | " + str(row[3]) + "e]")
+                return rows
 
         except Exception as error:
             print(error)
@@ -368,6 +373,7 @@ class DatabaseInteractor:
                 rows = cursor.fetchall()
                 for row in rows:
                     print("[" + str(row[0]) + " | " + str(row[1]) +  " | " + str(row[2]) + "e" + " | " + str(row[3]) + "]")
+                return rows
 
         except Exception as error:
             print(error)
@@ -392,6 +398,7 @@ class DatabaseInteractor:
                 rows = cursor.fetchall()
                 for row in rows:
                     print("[" + str(row[0]) + " | " + str(row[1]) +  " | " + str(row[2]) + "e" + " | " + str(row[3]) + "]")
+                return rows
 
         except Exception as error:
             print(error)
@@ -416,6 +423,7 @@ class DatabaseInteractor:
                 rows = cursor.fetchall()
                 for row in rows:
                     print("[" + str(row[0]) + " | " + str(row[1]) +  " | " + str(row[2]) + "e" + " | " + str(row[3]) + "]")
+                return rows
 
         except Exception as error:
             print(error)
