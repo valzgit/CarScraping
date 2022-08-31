@@ -26,8 +26,15 @@ guessed_bucket_classes = ["guessed [<= 2000]", "guessed [<= 4999]", "guessed [<=
                           "guessed [<= 19999]", "guessed [<= 24999]", "guessed [<= 29999]", "guessed [> 30000]"]
 bucket_classes = ["<= 2000", "<= 4999", "<= 9999", "<= 14999", "<= 19999", "<= 24999", "<= 29999", "> 30000"]
 initial_k = round(np.sqrt(len(train_cars)))
-min_k = round(9 / 10 * initial_k)
-max_k = round(11 / 10 * initial_k)
+print("Unesite k ili 0 ako zelite da algoritam sam racuna")
+uneto_k = int(input())
+if uneto_k <=0:
+    min_k = round(9 / 10 * initial_k)
+    max_k = round(11 / 10 * initial_k)
+else:
+    min_k = uneto_k
+    print("Unesite max_k")
+    max_k = int(input())
 print("Testing k values from " + str(min_k) + " to " + str(max_k))
 memorized_accuracies = []
 while min_k <= max_k:
