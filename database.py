@@ -330,7 +330,7 @@ class DatabaseInteractor:
                 self.connection.close()
                 self.initConnection()
 
-    def printRangList(self):
+    def printRangListBetween20212022(self):
         try:
             cursor = self.connection.cursor()
 
