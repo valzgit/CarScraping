@@ -358,7 +358,7 @@ class DatabaseInteractor:
         try:
             cursor = self.connection.cursor()
 
-            select_script = "select marka,model,cena from automobil order by kubikaza desc limit 1"
+            select_script = "select marka,model,cena, kubikaza from automobil order by kubikaza desc limit 1"
 
             cursor.execute(select_script)
 
@@ -367,7 +367,7 @@ class DatabaseInteractor:
             else:
                 rows = cursor.fetchall()
                 for row in rows:
-                    print("[" + str(row[0]) + " | " + str(row[1]) +  " | " + str(row[2]) + "e]")
+                    print("[" + str(row[0]) + " | " + str(row[1]) +  " | " + str(row[2]) + "e" + " | " + str(row[3]) + "]")
 
         except Exception as error:
             print(error)
@@ -382,7 +382,7 @@ class DatabaseInteractor:
         try:
             cursor = self.connection.cursor()
 
-            select_script = "select marka,model,cena from automobil order by snaga_motora desc limit 1"
+            select_script = "select marka,model,cena,snaga_motora from automobil order by snaga_motora desc limit 1"
 
             cursor.execute(select_script)
 
@@ -391,7 +391,7 @@ class DatabaseInteractor:
             else:
                 rows = cursor.fetchall()
                 for row in rows:
-                    print("[" + str(row[0]) + " | " + str(row[1]) +  " | " + str(row[2]) + "e]")
+                    print("[" + str(row[0]) + " | " + str(row[1]) +  " | " + str(row[2]) + "e" + " | " + str(row[3]) + "]")
 
         except Exception as error:
             print(error)
@@ -406,7 +406,7 @@ class DatabaseInteractor:
         try:
             cursor = self.connection.cursor()
 
-            select_script = "select marka,model,cena from automobil order by kilometraza desc limit 1"
+            select_script = "select marka,model,cena, kilometraza from automobil order by kilometraza desc limit 1"
 
             cursor.execute(select_script)
 
@@ -415,7 +415,7 @@ class DatabaseInteractor:
             else:
                 rows = cursor.fetchall()
                 for row in rows:
-                    print("[" + str(row[0]) + " | " + str(row[1]) +  " | " + str(row[2]) + "e]")
+                    print("[" + str(row[0]) + " | " + str(row[1]) +  " | " + str(row[2]) + "e" + " | " + str(row[3]) + "]")
 
         except Exception as error:
             print(error)
