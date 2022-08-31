@@ -1,0 +1,19 @@
+Za parametre automobila su koriscene
+- normalizovane sortirane karoserije od generalno najskupljih do generalno najjeftinijih
+- normalizovane sortirane vrste goriva od generalno najskupljih do generalno najjeftinijih
+- normalizovani sortirani menjaci od generalno najskupljih do generalno najjeftinijih
+- normalizovane sortirane marke od generalno najskupljih do generalno najjeftinijih
+- normalizovani sortirani modeli od generalno najskupljih do generalno najjeftinijih
+- normalizovano stanje polovno/novo 0.5/1
+- normalizovano godiste na osnovu njegove udaljenosti od 1940 godine
+- normalizovana kubikaza
+- normalizovana snaga motora
+- normalizovana kilometraza
+
+Iz spiska svih automobila skinuti su oni koji imaju ekstremno velike ili male vrednosti za kilometraze, cene, kubikaze, snage motora i godista
+
+Podaci su randomizovani i podeljeni u testne i trenirajuce
+
+Za linearnu regresiju realizovana je grebena regresija (alfa 0.35 i lambda 1 sa 50ak iteracija pokazuje najbolje performanse) kao i stohasticka, koriscena je i ugradjena za testne svrhe
+
+Za knn koriscene su euklidska i cebiseva razdaljina (maksimalna razdaljina izmedju neke 2 koordinate), prikazane su performanse sa razlicitim vrednostima k i korisnik moze da sam unese k po zelji
