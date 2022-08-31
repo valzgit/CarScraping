@@ -25,7 +25,7 @@ lambda_param = 1
 for param in cars[0].getLinearParams():
     w.append(INITIAL_W)
 
-iterations = 100
+iterations = 50
 i = 0
 while i < iterations:
     print("Iteration: " + str(i))
