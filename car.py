@@ -196,23 +196,23 @@ class Car:
         split_index = round(percentage / 100.0 * len(cars))
         return cars[:split_index], cars[split_index:]
 
-    def getPriceBucket(self):
+    def getPriceBucketIndex(self):
         if self.cena <= 2000:
-            return "<= 2000"
+            return 0
         elif self.cena <= 4999:
-            return "<= 4999"
+            return 1
         elif self.cena <= 9999:
-            return "<= 9999"
+            return 2
         elif self.cena <= 14999:
-            return "<= 14999"
+            return 3
         elif self.cena <= 19999:
-            return "<= 19999"
+            return 4
         elif self.cena <= 24999:
-            return "<= 24999"
+            return 5
         elif self.cena <= 29999:
-            return "<= 29999"
+            return 6
         else:
-            return "> 30000"
+            return 7
 
     @staticmethod
     def enrichPriceBucket(car, buckets):

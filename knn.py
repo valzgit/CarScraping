@@ -3,6 +3,7 @@ import heapq
 from car import Car
 from database import DatabaseInteractor
 import numpy as np
+import pandas as pd
 
 INITIAL_W = 1
 database = DatabaseInteractor()
@@ -19,8 +20,12 @@ cars = Car.removeAllCarsThatHaveOutOfRangeNumericalParams(cars)
 print(len(cars))
 Car.shuffle(cars)
 Car.calculateNormalizationValues(cars)
-train_cars, test_cars = Car.separateIntoTrainAndTestData(cars, 70)
+train_cars, test_cars = Car.separateIntoTrainAndTestData(cars, 99)
+guessed_bucket_classes = ["guessed [<= 2000]", "guessed [<= 4999]", "guessed [<= 9999]", "guessed [<= 14999]",
+                          "guessed [<= 19999]", "guessed [<= 24999]", "guessed [<= 29999]", "guessed [> 30000]"]
 bucket_classes = ["<= 2000", "<= 4999", "<= 9999", "<= 14999", "<= 19999", "<= 24999", "<= 29999", "> 30000"]
+bucket_matrix = [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]]
 initial_k = round(np.sqrt(len(train_cars)))
 
 for test_car in test_cars:
@@ -29,7 +34,6 @@ for test_car in test_cars:
     while train_car_iterator < len(train_cars):
         train_car = train_cars[train_car_iterator]
         distance = Car.calculateEuclideanDistance(test_car, train_car)
-        # print(str(distance) + "-" +str(train_car.cena))
         minHeap.append([distance, train_car_iterator, train_car])
         train_car_iterator += 1
 
@@ -49,8 +53,28 @@ for test_car in test_cars:
             maximum = buckets[counter]
             max_position = counter
         counter += 1
-    print("Predicted class was [" + bucket_classes[
-        max_position] + "] and real class was [" + test_car.getPriceBucket() + "]")
+
+    bucket_matrix[max_position][test_car.getPriceBucketIndex()] += 1
+
+    # print("Guessed [" + bucket_classes[max_position]+"]" + " and real was [" + bucket_classes[test_car.getPriceBucketIndex()] + "]")
+    # print(pd.DataFrame(bucket_matrix, columns=bucket_classes, index = guessed_bucket_classes).to_string())
+print(pd.DataFrame(bucket_matrix, columns=bucket_classes, index=guessed_bucket_classes).to_string())
+
+memorized_accuracies = []
+top_A = 0
+bottom_A = 0
+i = 0
+j = 0
+while i < len(bucket_matrix):
+    while j < len(bucket_matrix[0]):
+        if i == j:
+            top_A += bucket_matrix[i][j]
+        bottom_A += bucket_matrix[i][j]
+        j += 1
+    i += 1
+A = top_A / bottom_A
+print("Accuracy is [A = " + str(A) + "]")
+memorized_accuracies.append([initial_k, A])
 
 while 1:
     try:
